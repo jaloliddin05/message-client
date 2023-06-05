@@ -1,1 +1,15 @@
-<p>login works!</p>
+<div class="container mt-5 bg-warning p-5">
+    <div class="row justify-content-center anime">
+        <h1 class="text-center">You are Welcome!</h1>
+        <form class="col-lg-6" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group mt-3">
+                <input type="text" class="form-control" formControlName="name" placeholder="Enter your name">
+            </div>
+            <div *ngIf="loginForm.get('name')?.hasError('required') && loginForm.get('name')?.touched"
+                class="text-white">
+                name is required.
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Enter</button>
+        </form>
+    </div>
+</div>
