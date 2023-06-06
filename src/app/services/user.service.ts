@@ -11,4 +11,8 @@ export class UserService {
   login(data: any) {
     return this.httpClient.post(API_URL.LOGIN_URL, data);
   }
+
+  getUserByName(name: string) {
+    return this.httpClient.get(`${API_URL.USER_URL}/name?name=${name}`);
+  }
 }

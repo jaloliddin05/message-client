@@ -1,1 +1,24 @@
-<p>search works!</p>
+<nav class="bg-light w-100 d-flex justify-content-between p-2 nav-bar">
+    <h2>
+        <span class="text-info">/</span>
+        <span class="text-danger">\</span>
+        <span class="text-warning">/</span>
+        <span class="text-success">\</span>
+    </h2>
+    <div action="" class="w-50 position-relative">
+        <input class="w-100 p-2 rounded-pill border-0 search form-control search-input" type="text"
+            placeholder="Search  by name" [(ngModel)]="searchTerm" (input)="filterResults()" (blur)="onInputBlur()">
+        <ul class="search-result list-unstyled" *ngIf="showDropdown && filteredResults.length > 0">
+            <li class="p-1" *ngFor="let result of filteredResults">
+                <button class="border-0 bg-white" [routerLink]="['/home/single-user',result.name]"
+                    (click)="searchTerm = result.name">
+                    {{ !result.isNew ? result.name:result.name + " doesn't exist but you can send message"
+                    }}</button>
+            </li>
+        </ul>
+    </div>
+    <div class="text-light p-0">
+        Online
+    </div>
+    <button class="btn btn-primary rounded-circle text-white">J</button>
+</nav>

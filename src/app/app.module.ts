@@ -12,6 +12,8 @@ import { SendingMessageComponent } from './components/sending-message/sending-me
 import { TaggedMessageComponent } from './components/tagged-message/tagged-message.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { WriteMessageComponent } from './components/write-message/write-message.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { SingleUserMessageComponent } from './components/single-user-message/single-user-message.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { WriteMessageComponent } from './components/write-message/write-message.
     TaggedMessageComponent,
     NavbarComponent,
     WriteMessageComponent,
+    SidebarComponent,
+    SingleUserMessageComponent,
   ],
   imports: [
     BrowserModule,
