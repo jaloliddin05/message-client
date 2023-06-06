@@ -1,20 +1,23 @@
-<div class="sidebar">
-    <div class="row">
-        <div class="col">
+<div class="sidebar bg-light p-3">
+    <div class="row p-2">
+        <button class="col border-0 bg-transparent d-flex align-items-center fw-bold cursor" routerLinkActive="active"
+            [routerLink]="['/home','in-coming']">
             <i class="bi bi-inbox-fill"></i>
-            <span class="sidebar-label">Inbox</span>
-        </div>
+            Входящие ({{5}})
+        </button>
     </div>
-    <div class="row">
-        <div class="col">
+    <div class="row p-2">
+        <button class="col border-0 bg-transparent d-flex align-items-center fw-bold cursor" routerLinkActive="active"
+            [routerLink]="['/home','tagged']">
             <i class="bi bi-tag-fill"></i>
-            <span class="sidebar-label">Tagged</span>
-        </div>
+            Помеченные
+        </button>
     </div>
-    <div class="row">
-        <div class="col">
+    <div class="row p-2">
+        <button class="col  border-0 bg-transparent d-flex align-items-center fw-bold cursor" routerLinkActive="active"
+            [routerLink]="['/home','send']">
             <i class="bi bi-chat-left-dots-fill"></i>
-            <span class="sidebar-label">Incoming Messages</span>
-        </div>
+            Отправленные
+        </button>
     </div>
 </div>

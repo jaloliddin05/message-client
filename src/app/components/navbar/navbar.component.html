@@ -7,7 +7,7 @@
     </h2>
     <div action="" class="w-50 position-relative">
         <input class="w-100 p-2 rounded-pill border-0 search form-control search-input" type="text"
-            placeholder="Search  by name" [(ngModel)]="searchTerm" (input)="filterResults()" (blur)="onInputBlur()">
+            placeholder="Искать по имени" [(ngModel)]="searchTerm" (input)="filterResults()" (blur)="onInputBlur()">
         <ul class="search-result list-unstyled" *ngIf="showDropdown && filteredResults.length > 0">
             <li class="p-1" *ngFor="let result of filteredResults">
                 <button class="border-0 bg-white" [routerLink]="['/home/single-user',result.name]"
