@@ -12,6 +12,10 @@ export class MessageService {
     return this.httpClient.get(API_URL.MESSAGE_URL, { params: query });
   }
 
+  getOne(id: string) {
+    return this.httpClient.get(`${API_URL.MESSAGE_URL}/${id}`);
+  }
+
   getInBoxUnViewedMessagesCount(id: string) {
     return this.httpClient.get(`${API_URL.MESSAGE_URL}/count-inbox/${id}`);
   }
