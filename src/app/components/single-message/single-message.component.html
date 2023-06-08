@@ -14,9 +14,7 @@
                 <p class="fw-bold fs-6">{{message?.from?.name}}</p>
                 <p>{{message?.date | timeParsing}}</p>
             </div>
-            <div class="text">
-                {{message?.body ? message?.body : '' | messageBodyParser}}
-            </div>
+            <div [innerHTML]="message?.body | messageBodyParser"></div>
         </div>
     </div>
 </section>

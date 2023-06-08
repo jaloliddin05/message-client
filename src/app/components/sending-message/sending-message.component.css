@@ -1,0 +1,36 @@
+.inbox-list {
+  width: 80vw !important;
+}
+
+.message-item {
+  background-color: #f2f6fc;
+  border-bottom: 1px solid rgb(212, 203, 203);
+  cursor: pointer;
+  margin-bottom: 2px;
+}
+
+.message-item:hover {
+  border-bottom: 0px;
+  box-shadow: 4px 4px 8px rgb(177, 169, 169);
+}
+
+.tag-checkbox-span {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid yellowgreen;
+  z-index: 6;
+}
+
+.tag-checkbox-input:checked ~ .tag-checkbox-span {
+  background-color: yellow;
+  border-radius: 50%;
+}
+
+.message-item:hover .time-p {
+  visibility: hidden;
+}
+.message-item:hover .delete-btn {
+  display: inline-block !important;
+  z-index: 6;
+}
