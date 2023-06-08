@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   user: any;
+  isWriteModalOpen: boolean = false;
   constructor(
     private readonly cookieService: CookieService,
     private readonly userService: UserService,
@@ -30,5 +31,9 @@ export class HomeComponent implements OnInit {
         console.log(err.error);
       },
     });
+  }
+
+  changeModalVisibility(bool: boolean) {
+    this.isWriteModalOpen = bool;
   }
 }

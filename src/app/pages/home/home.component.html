@@ -1,5 +1,7 @@
 <app-navbar [user]="user"></app-navbar>
 <div class="d-flex w-100">
-    <app-sidebar></app-sidebar>
+    <app-sidebar (isWriteModalOpen)="changeModalVisibility($event)"></app-sidebar>
     <router-outlet></router-outlet>
 </div>
+<app-write-message class="write-message-comp" [class.visible]="isWriteModalOpen" [class.invisible]="!isWriteModalOpen"
+    (isWriteModalOpen)="changeModalVisibility($event)"></app-write-message>

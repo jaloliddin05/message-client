@@ -1,4 +1,10 @@
 <div class="sidebar bg-light p-3">
+    <div class="">
+        <button class="col d-flex align-items-center cursor btn write-btn" (click)="openWriteModal()">
+            <img src="../../../assets/create_black_24dp.svg" width="15" height="20" alt="" class="mx-1">
+            Написать
+        </button>
+    </div>
     <div class="row p-2">
         <button class="col border-0 bg-transparent d-flex align-items-center cursor" routerLinkActive="active"
             [routerLink]="['/home','in-coming']">

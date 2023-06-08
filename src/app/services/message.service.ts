@@ -27,4 +27,8 @@ export class MessageService {
   deleteOne(id: string) {
     return this.httpClient.delete(`${API_URL.MESSAGE_URL}/${id}`);
   }
+
+  create(data: any) {
+    return this.httpClient.post(API_URL.MESSAGE_URL, data);
+  }
 }

@@ -59,4 +59,16 @@ export class IncomingMessageComponent implements OnInit {
       },
     });
   }
+
+  tagMessage(id: string, bool: boolean) {
+    this.messageService.changeOne(id, { isToTagged: bool }).subscribe({
+      next: (res) => {
+        const message = this.incomingMessages.find((m: any) => m.id == id);
+        message.isToTagged = true;
+      },
+      error: (err) => {
+        console.log(err.error);
+      },
+    });
+  }
 }

@@ -1,0 +1,27 @@
+.message-box {
+  min-width: 550px;
+  min-height: 550px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  z-index: 20;
+}
+
+.full-screen {
+  min-width: 80vw;
+  min-height: 650px;
+}
+
+.message-top {
+  background-color: #eaf1fb;
+}
+
+.input-focus:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+textarea {
+  border: none;
+  outline: none;
+  resize: none;
+}

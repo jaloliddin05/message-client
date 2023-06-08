@@ -4,7 +4,8 @@
         [class.bg-white]="!message.isViewed" (click)="clickMessage(message.id,message.isViewed, $event)">
         <div class="d-flex align-items-center w-25">
             <label class="mx-2 not-click">
-                <input type="checkbox" class="d-none tag-checkbox-input not-click">
+                <input type="checkbox" class="d-none tag-checkbox-input not-click" [checked]="message?.isToTagged"
+                    #tagCheckbox (change)="tagMessage(message.id,tagCheckbox.checked)">
                 <span class="tag-checkbox-span not-click"></span>
             </label>
             <h5 [class.fw-light]="message.isViewed">{{message.from.name}}</h5>
