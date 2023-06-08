@@ -14,6 +14,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { WriteMessageComponent } from './components/write-message/write-message.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { SingleUserMessageComponent } from './components/single-user-message/single-user-message.component';
+import { TimeParsingPipe } from './pipes/time-parsing.pipe';
+import { SingleMessageComponent } from './components/single-message/single-message.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { SingleUserMessageComponent } from './components/single-user-message/sin
     WriteMessageComponent,
     SidebarComponent,
     SingleUserMessageComponent,
+    TimeParsingPipe,
+    SingleMessageComponent,
   ],
   imports: [
     BrowserModule,

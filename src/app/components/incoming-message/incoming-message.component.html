@@ -1,1 +1,25 @@
-<p>incoming-message works!</p>
+<ul class="list-unstyled inbox-list p-3">
+    <li *ngFor="let message of incomingMessages"
+        class="d-flex align-items-center justify-content-between w-100 message-item"
+        [class.bg-white]="!message.isViewed" (click)="clickMessage(message.id,message.isViewed, $event)">
+        <div class="d-flex align-items-center w-25">
+            <label class="mx-2 not-click">
+                <input type="checkbox" class="d-none tag-checkbox-input not-click">
+                <span class="tag-checkbox-span not-click"></span>
+            </label>
+            <h5 [class.fw-light]="message.isViewed">{{message.from.name}}</h5>
+        </div>
+        <div class="d-flex w-75 justify-content-between">
+            <div class="">
+                <span [class.fw-bold]="!message.isViewed">{{message.title}}</span>-
+                <span>{{message.body}}</span>
+            </div>
+            <div class="d-flex justify-content-end align-items-center">
+                <p class="mx-2 time-p">{{message.date | timeParsing}}</p>
+                <button class="d-none btn delete-btn not-click" (click)="deleteMessage(message.id)">
+                    <img src="../../../assets/delete_btn.svg" width="20" height="20" alt="" class="not-click">
+                </button>
+            </div>
+        </div>
+    </li>
+</ul>

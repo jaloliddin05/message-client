@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -12,10 +11,9 @@ export class NavbarComponent {
   showDropdown: boolean = false;
   results: any[] = [];
   filteredResults: any[] = [];
-  constructor(
-    private readonly userService: UserService,
-    private readonly router: Router
-  ) {}
+  @Input() user: any;
+
+  constructor(private readonly userService: UserService) {}
 
   filterResults() {
     if (this.searchTerm.trim() !== '') {

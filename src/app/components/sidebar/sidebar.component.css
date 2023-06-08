@@ -5,6 +5,7 @@
 .sidebar .active {
   background-color: #d3e3fd !important;
   border-radius: 10px !important;
+  font-weight: bold;
 }
 .sidebar {
   height: 100vh;

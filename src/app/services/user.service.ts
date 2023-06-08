@@ -15,4 +15,8 @@ export class UserService {
   getUserByName(name: string) {
     return this.httpClient.get(`${API_URL.USER_URL}/name?name=${name}`);
   }
+
+  getUserById(id: string) {
+    return this.httpClient.get(`${API_URL.USER_URL}/${id}`);
+  }
 }

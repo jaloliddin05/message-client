@@ -6,6 +6,7 @@ import { SendingMessageComponent } from './components/sending-message/sending-me
 import { IncomingMessageComponent } from './components/incoming-message/incoming-message.component';
 import { TaggedMessageComponent } from './components/tagged-message/tagged-message.component';
 import { SingleUserMessageComponent } from './components/single-user-message/single-user-message.component';
+import { SingleMessageComponent } from './components/single-message/single-message.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'in-coming', component: IncomingMessageComponent },
       { path: 'tagged', component: TaggedMessageComponent },
       { path: 'single-user/:name', component: SingleUserMessageComponent },
+      { path: 'single-message/:id', component: SingleMessageComponent },
     ],
   },
   { path: '**', redirectTo: 'home' },
