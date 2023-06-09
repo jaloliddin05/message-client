@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { MessageService } from '../../services/message.service';
 import { CookieService } from 'ngx-cookie-service';
+import { WebSocketService } from '../../services/web-socket.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,7 +14,8 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private readonly messageService: MessageService,
-    private readonly cookieService: CookieService
+    private readonly cookieService: CookieService,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   ngOnInit(): void {
@@ -25,6 +27,10 @@ export class SidebarComponent implements OnInit {
       error: (err) => {
         console.log(err.error);
       },
+    });
+
+    this.webSocketService.getInComingCount().subscribe((data) => {
+      this.inboxCount = data;
     });
   }
 

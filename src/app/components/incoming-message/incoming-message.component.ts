@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../../services/message.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { WebSocketService } from '../../services/web-socket.service';
 
 @Component({
   selector: 'app-incoming-message',
@@ -9,11 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./incoming-message.component.css'],
 })
 export class IncomingMessageComponent implements OnInit {
-  incomingMessages: any;
+  incomingMessages: any[] = [];
   constructor(
     private readonly messageService: MessageService,
     private readonly cookieService: CookieService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly webSocketService: WebSocketService
   ) {}
   ngOnInit(): void {
     const userId = this.cookieService.get('userId');
@@ -24,6 +26,9 @@ export class IncomingMessageComponent implements OnInit {
       error: (err) => {
         console.log(err.error);
       },
+    });
+    this.webSocketService.getInComingMessages().subscribe((data) => {
+      this.incomingMessages.unshift(data);
     });
   }
 
@@ -38,6 +43,7 @@ export class IncomingMessageComponent implements OnInit {
           const message = this.incomingMessages.find((m: any) => m.id == id);
           message.isViewed = true;
           this.router.navigate(['home', 'single-message', id]);
+          this.updateIncomingCount();
         },
         error: (err) => {
           console.log(err.error);
@@ -70,5 +76,10 @@ export class IncomingMessageComponent implements OnInit {
         console.log(err.error);
       },
     });
+  }
+
+  updateIncomingCount() {
+    const userId = this.cookieService.get('userId');
+    this.webSocketService.updateInComingCount(userId);
   }
 }

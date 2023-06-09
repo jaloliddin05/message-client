@@ -3,6 +3,7 @@ import { MessageService } from '../../services/message.service';
 import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
+import { WebSocketService } from '../../services/web-socket.service';
 
 @Component({
   selector: 'app-write-message',
@@ -19,7 +20,8 @@ export class WriteMessageComponent implements OnInit {
     private formBuilder: FormBuilder,
     private readonly messageService: MessageService,
     private readonly userService: UserService,
-    private readonly cookieService: CookieService
+    private readonly cookieService: CookieService,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   ngOnInit(): void {
@@ -52,7 +54,10 @@ export class WriteMessageComponent implements OnInit {
   onSubmit() {
     const from = this.cookieService.get('userId');
     this.messageService.create({ ...this.messageForm.value, from }).subscribe({
-      next: (res) => {
+      next: (res: any) => {
+        const messageId = res.raw[0].id;
+        this.webSocketService.sendMessage(messageId);
+        this.messageForm.reset();
         this.closeWriteModal();
       },
       error: (err) => {

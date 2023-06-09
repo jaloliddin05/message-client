@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from '../../services/message.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { WebSocketService } from '../../services/web-socket.service';
 
 @Component({
   selector: 'app-sending-message',
@@ -9,11 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./sending-message.component.css'],
 })
 export class SendingMessageComponent implements OnInit {
-  sendingMessages: any;
+  sendingMessages: any[] = [];
   constructor(
     private readonly messageService: MessageService,
     private readonly cookieService: CookieService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly webSocketService: WebSocketService
   ) {}
   ngOnInit(): void {
     const userId = this.cookieService.get('userId');
@@ -24,6 +26,10 @@ export class SendingMessageComponent implements OnInit {
       error: (err) => {
         console.log(err.error);
       },
+    });
+
+    this.webSocketService.getSendingMessages().subscribe((data) => {
+      this.sendingMessages.unshift(data);
     });
   }
 

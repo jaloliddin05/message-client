@@ -3,9 +3,10 @@
     <div class="message-top w-100 d-flex align-items-center justify-content-between rounded rounded-3 rounded-bottom-0">
         <span class="fw-semibold mx-2">Новое сообщение</span>
         <div class="">
-            <button class="btn bg-transparent fs-3 border-0" (click)="changeScreen(!isFullScreen)">{{isFullScreen ?
+            <button type="button" class="btn bg-transparent fs-3 border-0"
+                (click)="changeScreen(!isFullScreen)">{{isFullScreen ?
                 '⇲':'⇱'}}</button>
-            <button class="btn bg-transparent fs-3" (click)="closeWriteModal()">⤬</button>
+            <button type="button" class="btn bg-transparent fs-3" (click)="closeWriteModal()">⤬</button>
         </div>
     </div>
     <div class="message-user w-100 d-flex">

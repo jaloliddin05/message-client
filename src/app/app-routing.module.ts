@@ -21,7 +21,7 @@ const routes: Routes = [
       { path: 'single-message/:id', component: SingleMessageComponent },
     ],
   },
-  { path: '**', redirectTo: 'home' },
+  { path: '**', redirectTo: 'login' },
 ];
 
 @NgModule({
