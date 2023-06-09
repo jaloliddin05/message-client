@@ -28,3 +28,10 @@
   border-bottom-left-radius: 0px !important;
   border-bottom-right-radius: 0px !important;
 }
+
+datalist {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 5px;
+}

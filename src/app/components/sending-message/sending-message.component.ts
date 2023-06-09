@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './sending-message.component.html',
   styleUrls: ['./sending-message.component.css'],
 })
-export class SendingMessageComponent {
+export class SendingMessageComponent implements OnInit {
   sendingMessages: any;
   constructor(
     private readonly messageService: MessageService,

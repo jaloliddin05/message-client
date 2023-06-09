@@ -1,6 +1,5 @@
 <section class="container-section position-relative">
-    <button class="position-absolute top-0 start-0 btn rounded-circle fw-bold"
-        [routerLink]="['/home','in-coming']">←</button>
+    <button class="position-absolute top-0 start-0 btn rounded-circle fw-bold" (click)="goBack()">←</button>
     <h2 class="fs-4 fw-normal title-msg">{{message?.title}}</h2>
     <div class="msg-body d-flex w-100">
         <div class="msg-body-top">

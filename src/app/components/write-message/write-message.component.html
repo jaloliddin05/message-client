@@ -9,9 +9,9 @@
         </div>
     </div>
     <div class="message-user w-100 d-flex">
-        <input list="browsers" type="text" placeholder="Получатели"
+        <input list="writeList" type="text" placeholder="Получатели"
             class="border-0 border-bottom form-control input-focus" (input)="userInputChange()" formControlName="to">
-        <datalist id="browsers" class="w-100">
+        <datalist id="writeList" class="w-100">
             <option *ngFor="let item of filteredUsersList" class="w-100" [value]="item?.name">
         </datalist>
     </div>

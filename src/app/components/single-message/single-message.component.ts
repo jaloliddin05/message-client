@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from '../../services/message.service';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
+import { MessageService } from '../../services/message.service';
 
 @Component({
   selector: 'app-single-message',
@@ -11,7 +12,8 @@ export class SingleMessageComponent implements OnInit {
   message!: any;
   constructor(
     private readonly messageService: MessageService,
-    private readonly param: ActivatedRoute
+    private readonly param: ActivatedRoute,
+    private readonly location: Location
   ) {}
   ngOnInit(): void {
     this.param.params.subscribe((params) => {
@@ -25,5 +27,9 @@ export class SingleMessageComponent implements OnInit {
         },
       });
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

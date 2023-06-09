@@ -14,7 +14,13 @@ export class TimeParsingPipe implements PipeTransform {
     const dayDif = currentDate.getDate() - date.getDate();
     //...
     if (!timeDiff && !dayDif) {
-      return date.getHours() + ':' + date.getMinutes();
+      return (
+        date.getHours() +
+        ':' +
+        (date.getMinutes() / 10 >= 1
+          ? date.getMinutes()
+          : '0' + date.getMinutes())
+      );
     }
     //...
     const month = date.toLocaleString('default', { month: 'long' });

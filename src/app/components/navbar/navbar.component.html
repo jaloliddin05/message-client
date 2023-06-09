@@ -6,16 +6,22 @@
         <span class="text-success">\</span>
     </h2>
     <div action="" class="w-50 position-relative">
-        <input class="w-100 p-2 rounded-pill border-0 search form-control search-input" type="text"
+        <input class="w-100 p-2 rounded-pill border-0 search form-control search-input" list="navbarList" type="text"
             placeholder="Искать по имени" [(ngModel)]="searchTerm" (input)="filterResults()" (blur)="onInputBlur()">
-        <ul class="search-result list-unstyled" *ngIf="showDropdown && filteredResults.length > 0">
+        <!-- <ul class="search-result list-unstyled" *ngIf="showDropdown && filteredResults.length > 0">
             <li class="p-1" *ngFor="let result of filteredResults">
                 <button class="border-0 bg-white" [routerLink]="['/home/single-user',result.name]"
                     (click)="searchTerm = result.name">
                     {{ !result.isNew ? result.name:result.name + " doesn't exist but you can send message"
                     }}</button>
             </li>
-        </ul>
+        </ul> -->
+        <datalist id="navbarList" class="w-100">
+            <option *ngFor="let item of filteredResults" class="w-100" [routerLink]="['/home/single-user',item.name]">
+                {{ !item.isNew ? item.name:item.name + " doesn't exist but you can send message"
+                }}
+            </option>
+        </datalist>
     </div>
     <div class="text-light p-0">
         Online

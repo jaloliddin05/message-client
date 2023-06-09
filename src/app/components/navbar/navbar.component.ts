@@ -17,11 +17,13 @@ export class NavbarComponent {
 
   filterResults() {
     if (this.searchTerm.trim() !== '') {
-      this.userService.getUserByName(this.searchTerm).subscribe({
+      this.userService.getUserByName(this.searchTerm.trim()).subscribe({
         next: (res: any) => {
           this.results = res;
           this.filteredResults = this.results.filter((result) =>
-            result.name.toLowerCase().includes(this.searchTerm.toLowerCase())
+            result.name
+              .toLowerCase()
+              .includes(this.searchTerm.trim().toLowerCase())
           );
           if (this.filteredResults.length == 0) {
             this.filteredResults.push({
