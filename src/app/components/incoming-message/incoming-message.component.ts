@@ -11,6 +11,8 @@ import { WebSocketService } from '../../services/web-socket.service';
 })
 export class IncomingMessageComponent implements OnInit {
   incomingMessages: any[] = [];
+  meta: any;
+  links: any;
   constructor(
     private readonly messageService: MessageService,
     private readonly cookieService: CookieService,
@@ -21,15 +23,15 @@ export class IncomingMessageComponent implements OnInit {
     const userId = this.cookieService.get('userId');
     this.messageService.getMessages({ to: userId }).subscribe({
       next: (res: any) => {
+        this.meta = res.meta;
+        this.links = res.links;
         this.incomingMessages = res.items;
       },
       error: (err) => {
         console.log(err.error);
       },
     });
-    this.webSocketService.getInComingMessages().subscribe((data) => {
-      this.incomingMessages.unshift(data);
-    });
+    this.getIncomingMessageFromSocket();
   }
 
   clickMessage(id: string, isViewed: boolean, $event: any) {
@@ -59,6 +61,8 @@ export class IncomingMessageComponent implements OnInit {
       next: (res) => {
         const index = this.incomingMessages.findIndex((m: any) => m.id == id);
         this.incomingMessages.splice(index, 1);
+        this.meta.itemCount = this.incomingMessages.length;
+        this.meta.totalItems--;
       },
       error: (err) => {
         console.log(err);
@@ -81,5 +85,32 @@ export class IncomingMessageComponent implements OnInit {
   updateIncomingCount() {
     const userId = this.cookieService.get('userId');
     this.webSocketService.updateInComingCount(userId);
+  }
+
+  getIncomingMessageFromSocket() {
+    this.webSocketService.getInComingMessages().subscribe((data) => {
+      if (this.meta.currentPage == 1) {
+        this.incomingMessages.unshift(data);
+        if (this.incomingMessages.length > 10) {
+          this.incomingMessages.pop();
+        }
+        this.meta.itemCount = this.incomingMessages.length;
+      }
+      this.meta.totalItems++;
+    });
+  }
+
+  paginate(page: any) {
+    const userId = this.cookieService.get('userId');
+    this.messageService.getMessages({ to: userId, page }).subscribe({
+      next: (res: any) => {
+        this.meta = res.meta;
+        this.links = res.links;
+        this.incomingMessages = res.items;
+      },
+      error: (err) => {
+        console.log(err.error);
+      },
+    });
   }
 }

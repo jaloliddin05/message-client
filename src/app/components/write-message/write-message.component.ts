@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, Input } from '@angular/core';
 import { MessageService } from '../../services/message.service';
 import { UserService } from '../../services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -14,6 +14,8 @@ export class WriteMessageComponent implements OnInit {
   messageForm!: FormGroup;
   isFullScreen: boolean = false;
   filteredUsersList: any[] = [];
+
+  @Input() receiverName: any;
   @Output() isWriteModalOpen = new EventEmitter();
 
   constructor(
@@ -26,10 +28,11 @@ export class WriteMessageComponent implements OnInit {
 
   ngOnInit(): void {
     this.messageForm = this.formBuilder.group({
-      to: ['', Validators.required],
+      to: [this.receiverName ? this.receiverName : '', Validators.required],
       title: ['', [Validators.required, Validators.email]],
       body: ['', [Validators.required]],
     });
+    this.messageForm.value.to = this.receiverName ? this.receiverName : '';
   }
 
   userInputChange() {
@@ -68,6 +71,7 @@ export class WriteMessageComponent implements OnInit {
 
   closeWriteModal() {
     this.isWriteModalOpen.emit(false);
+    this.isFullScreen = false;
   }
 
   changeScreen(bool: boolean) {

@@ -1,3 +1,5 @@
+<app-pagination [meta]="meta" [page]="'tagged'" [links]="links" (paginateTaggedPage)="paginate($event)"
+    class="w-100 d-flex justify-content-end"></app-pagination>
 <ul class="list-unstyled inbox-list">
     <li *ngFor="let message of taggedMessages"
         class="d-flex align-items-center justify-content-between w-100 message-item"

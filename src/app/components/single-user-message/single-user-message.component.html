@@ -1,1 +1,40 @@
-<p>single-user-message works!</p>
+<div class="d-flex w-100 justify-content-between p-2">
+    <div class="d-flex align-items-center">
+        <img id=":m7_28-e" name=":m7" src="https://lh3.googleusercontent.com/a/default-user=s40-p"
+            class="rounded-circle" style="background-color: #cccccc" jid="no-reply@render.com"
+            data-hovercard-id="no-reply@render.com" data-name="Render" aria-hidden="true" data-hovercard-owner-id="103">
+        <span class="fw-bold mx-3">{{username}}</span>
+        <button class="btn bg-transparent border-0 text-info" (click)="openWriteModal(true)">Написать</button>
+    </div>
+    <app-pagination [meta]="meta" [page]="'single-user'" [links]="links" (paginateTwoUserPage)="paginate($event)"
+        class="w-100 d-flex justify-content-end"></app-pagination>
+</div>
+<ul class="list-unstyled inbox-list">
+    <li *ngFor="let message of twoUserMessages"
+        class="d-flex align-items-center justify-content-between w-100 message-item"
+        (click)="clickMessage(message.id, $event)">
+        <div class="d-flex align-items-center w-25">
+            <label class="mx-2 not-click">
+                <input type="checkbox" class="d-none tag-checkbox-input not-click"
+                    [checked]="message?.isMyMessage ? message?.isFromTagged :message?.isToTagged" #tagCheckbox
+                    (change)="tagMessage(message.id,tagCheckbox.checked, message.isMyMessage)">
+                <span class="tag-checkbox-span not-click"></span>
+            </label>
+            <h6 class="fw-semibold">{{message.isMyMessage ? 'я': message.from.name}}</h6>
+        </div>
+        <div class="d-flex w-75 justify-content-between">
+            <div class="p-1">
+                <span class="text-secondary">Входящие </span>
+                <span>{{message.body | messageBodyParser :message.title : 61}}</span>
+            </div>
+            <div class="d-flex justify-content-end align-items-center p-1">
+                <p class="mx-2 time-p">{{message.date | timeParsing}}</p>
+                <button class="d-none btn delete-btn not-click" (click)="deleteMessage(message.id)">
+                    <img src="../../../assets/delete_btn.svg" width="20" height="20" alt="" class="not-click">
+                </button>
+            </div>
+        </div>
+    </li>
+</ul>
+<app-write-message class="write-message-comp" [class.visible]="isWriteModalOpen" [class.invisible]="!isWriteModalOpen"
+    (isWriteModalOpen)="openWriteModal($event)" [receiverName]="username"></app-write-message>

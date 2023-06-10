@@ -58,12 +58,12 @@ export class NavbarComponent {
   handleKey(event: any) {
     if (event.keyCode == 38) {
       this.keyPgUp();
-    }
-    if (event.keyCode == 40) {
+    } else if (event.keyCode == 40) {
       this.keyPgDn();
-    }
-    if (event.keyCode == 13) {
+    } else if (event.keyCode == 13) {
       this.keyEnter();
+    } else {
+      this.filterIndex = 0;
     }
   }
   keyPgUp() {
@@ -72,7 +72,7 @@ export class NavbarComponent {
     }
   }
   keyPgDn() {
-    if (this.filterIndex < this.filteredResults.length) {
+    if (this.filterIndex < this.filteredResults.length - 1) {
       this.filterIndex++;
     }
   }

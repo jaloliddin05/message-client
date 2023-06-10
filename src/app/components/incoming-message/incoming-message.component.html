@@ -1,3 +1,5 @@
+<app-pagination [meta]="meta" [page]="'in-coming'" [links]="links" (paginateInComingPage)="paginate($event)"
+    class="w-100 d-flex justify-content-end"></app-pagination>
 <ul class="list-unstyled inbox-list p-3">
     <li *ngFor="let message of incomingMessages"
         class="d-flex align-items-center justify-content-between w-100 message-item"

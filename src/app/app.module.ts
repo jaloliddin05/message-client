@@ -17,6 +17,7 @@ import { SingleUserMessageComponent } from './components/single-user-message/sin
 import { TimeParsingPipe } from './pipes/time-parsing.pipe';
 import { SingleMessageComponent } from './components/single-message/single-message.component';
 import { MessageBodyParserPipe } from './pipes/message-body-parser.pipe';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MessageBodyParserPipe } from './pipes/message-body-parser.pipe';
     TimeParsingPipe,
     SingleMessageComponent,
     MessageBodyParserPipe,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,

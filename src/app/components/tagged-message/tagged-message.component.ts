@@ -10,38 +10,33 @@ import { Router } from '@angular/router';
 })
 export class TaggedMessageComponent implements OnInit {
   taggedMessages: any[] = [];
+  meta: any;
+  links: any;
+  userId = '';
+
   constructor(
     private readonly messageService: MessageService,
     private readonly cookieService: CookieService,
     private readonly router: Router
   ) {}
   ngOnInit(): void {
-    const userId = this.cookieService.get('userId');
-    this.getTaggedMessages({ from: userId, isFromTagged: true });
-    this.getTaggedMessages({ to: userId, isToTagged: true });
+    this.userId = this.cookieService.get('userId');
+    this.getTaggedMessages(this.userId, {});
   }
 
-  getTaggedMessages(query: any) {
-    this.messageService.getMessages(query).subscribe({
+  getTaggedMessages(id: string, query: any) {
+    this.messageService.getTaggedMessages(id, query).subscribe({
       next: (res: any) => {
-        if (query.from) {
-          let data = res.items;
-          data?.forEach((d: any) => {
-            d.isMyMessage = true;
-          });
-          this.taggedMessages = [...this.taggedMessages, ...data].sort(
-            (a: any, b: any) => b.date - a.date
-          );
-        }
-        if (query.to) {
-          let data = res.items;
-          data?.forEach((d: any) => {
-            d.isMyMessage = false;
-          });
-          this.taggedMessages = [...this.taggedMessages, ...data].sort(
-            (a: any, b: any) => b.date - a.date
-          );
-        }
+        this.links = res.links;
+        this.meta = res.meta;
+        this.taggedMessages = res.items;
+        this.taggedMessages.forEach((t: any) => {
+          if (t.from.id == this.userId) {
+            t.isMyMessage = true;
+          } else {
+            t.isMyMessage = false;
+          }
+        });
       },
       error: (err) => {
         console.log(err.error);
@@ -61,6 +56,8 @@ export class TaggedMessageComponent implements OnInit {
       next: (res) => {
         const index = this.taggedMessages.findIndex((m: any) => m.id == id);
         this.taggedMessages.splice(index, 1);
+        this.meta.itemCount = this.taggedMessages.length;
+        this.meta.totalItems--;
       },
       error: (err) => {
         console.log(err);
@@ -74,6 +71,28 @@ export class TaggedMessageComponent implements OnInit {
       next: (res) => {
         const index = this.taggedMessages.findIndex((m: any) => m.id == id);
         this.taggedMessages.splice(index, 1);
+        this.meta.itemCount = this.taggedMessages.length;
+        this.meta.totalItems--;
+      },
+      error: (err) => {
+        console.log(err.error);
+      },
+    });
+  }
+
+  paginate(page: any) {
+    this.messageService.getTaggedMessages(this.userId, { page }).subscribe({
+      next: (res: any) => {
+        this.meta = res.meta;
+        this.links = res.links;
+        this.taggedMessages = res.items;
+        this.taggedMessages.forEach((t: any) => {
+          if (t.from.id == this.userId) {
+            t.isMyMessage = true;
+          } else {
+            t.isMyMessage = false;
+          }
+        });
       },
       error: (err) => {
         console.log(err.error);

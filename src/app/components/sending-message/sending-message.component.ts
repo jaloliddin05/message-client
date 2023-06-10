@@ -11,6 +11,9 @@ import { WebSocketService } from '../../services/web-socket.service';
 })
 export class SendingMessageComponent implements OnInit {
   sendingMessages: any[] = [];
+  meta: any;
+  links: any;
+
   constructor(
     private readonly messageService: MessageService,
     private readonly cookieService: CookieService,
@@ -22,15 +25,15 @@ export class SendingMessageComponent implements OnInit {
     this.messageService.getMessages({ from: userId }).subscribe({
       next: (res: any) => {
         this.sendingMessages = res.items;
+        this.meta = res.meta;
+        this.links = res.links;
       },
       error: (err) => {
         console.log(err.error);
       },
     });
 
-    this.webSocketService.getSendingMessages().subscribe((data) => {
-      this.sendingMessages.unshift(data);
-    });
+    this.getSendingMessagesFromSocket();
   }
 
   clickMessage(id: string, $event: any) {
@@ -45,6 +48,8 @@ export class SendingMessageComponent implements OnInit {
       next: (res) => {
         const index = this.sendingMessages.findIndex((m: any) => m.id == id);
         this.sendingMessages.splice(index, 1);
+        this.meta.itemCount = this.sendingMessages.length;
+        this.meta.totalItems--;
       },
       error: (err) => {
         console.log(err);
@@ -56,7 +61,34 @@ export class SendingMessageComponent implements OnInit {
     this.messageService.changeOne(id, { isFromTagged: bool }).subscribe({
       next: (res) => {
         const message = this.sendingMessages.find((m: any) => m.id == id);
-        message.isToTagged = true;
+        message.isFromTagged = bool;
+      },
+      error: (err) => {
+        console.log(err.error);
+      },
+    });
+  }
+
+  getSendingMessagesFromSocket() {
+    this.webSocketService.getSendingMessages().subscribe((data) => {
+      if (this.meta.currentPage == 1) {
+        this.sendingMessages.unshift(data);
+        if (this.sendingMessages.length > 10) {
+          this.sendingMessages.pop();
+        }
+        this.meta.itemCount = this.sendingMessages.length;
+      }
+      this.meta.totalItems++;
+    });
+  }
+
+  paginate(page: any) {
+    const userId = this.cookieService.get('userId');
+    this.messageService.getMessages({ from: userId, page }).subscribe({
+      next: (res: any) => {
+        this.meta = res.meta;
+        this.links = res.links;
+        this.sendingMessages = res.items;
       },
       error: (err) => {
         console.log(err.error);

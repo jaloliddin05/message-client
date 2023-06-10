@@ -15,7 +15,7 @@ export class TimeParsingPipe implements PipeTransform {
     //...
     if (!timeDiff && !dayDif) {
       return (
-        date.getHours() +
+        (date.getHours() / 10 >= 1 ? date.getHours() : '0' + date.getHours()) +
         ':' +
         (date.getMinutes() / 10 >= 1
           ? date.getMinutes()

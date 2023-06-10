@@ -20,6 +20,18 @@ export class MessageService {
     return this.httpClient.get(`${API_URL.MESSAGE_URL}/count-inbox/${id}`);
   }
 
+  getTwoUserMessages(firstId: string, secondName: string) {
+    return this.httpClient.get(`${API_URL.MESSAGE_URL}/two-user/message`, {
+      params: { firstId, secondName },
+    });
+  }
+
+  getTaggedMessages(id: string, query: any) {
+    return this.httpClient.get(`${API_URL.MESSAGE_URL}/tagged/message/${id}`, {
+      params: query,
+    });
+  }
+
   changeOne(id: string, data: any) {
     return this.httpClient.patch(`${API_URL.MESSAGE_URL}/${id}`, data);
   }

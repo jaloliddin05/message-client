@@ -1,0 +1,7 @@
+<div class="d-flex align-items-center text-secondary">
+    <span class="mx-1">{{(meta?.currentPage - 1) * meta?.itemsPerPage + 1}}</span>-
+    <span class="mx-1">{{(meta?.currentPage - 1) * meta?.itemsPerPage + meta?.itemCount}}</span> из
+    <span class="mx-1">{{meta?.totalItems}}</span>
+    <button class="btn text-secondary border-0" [disabled]="!links?.previous" (click)="previousPage()">〈</button>
+    <button class="btn text-secondary border-0" [disabled]="!links?.next" (click)="nextPage()">〉</button>
+</div>
