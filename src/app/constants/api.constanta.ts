@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:4000';
+import { environment } from '../../environment';
+const API_URL = environment.apiUrl;
 const LOGIN_URL = `${API_URL}/user/login`;
 const USER_URL = `${API_URL}/user`;
 const MESSAGE_URL = `${API_URL}/message`;
