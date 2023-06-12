@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class WebSocketService {
 
   constructor(private readonly cookieService: CookieService) {
     const userId = this.cookieService.get('userId');
-    this.socket = io('http://localhost:4000', {
+    this.socket = io(environment.apiUrl, {
       transports: ['websocket', 'polling'],
       reconnection: false,
       withCredentials: true,
